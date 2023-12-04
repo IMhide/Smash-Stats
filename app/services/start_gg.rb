@@ -1,3 +1,6 @@
+require 'graphql/client'
+require 'graphql/client/http'
+
 module StartGg
   START_GG_URL = 'https://api.start.gg/gql/alpha'
   API_KEY = Rails.application.credentials.start_gg_api_key

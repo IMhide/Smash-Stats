@@ -1,4 +1,4 @@
-class StartGg::GetTournaments < StartGg::BaseService
+class StartGg::GetTournaments
   PER_PAGE = 340
   Request = StartGg::Client.parse <<~'GRAPHQL'
     query($page: Int, $perPage: Int) {
