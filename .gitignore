@@ -46,3 +46,5 @@ lib/tasks/debug.rake
 app/assets/data/interlo-id-ibu.csv
 out/
 .DS_Store
+
+/config/credentials/development.key

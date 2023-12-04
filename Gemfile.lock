@@ -155,6 +155,10 @@ GEM
       sexp_processor (~> 4.8)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphql (2.0.27)
+    graphql-client (0.18.0)
+      activesupport (>= 3.0)
+      graphql
     hashdiff (1.0.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -443,6 +447,8 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker (~> 2.18)
+  graphql (>= 2.0.27, < 2.1)
+  graphql-client
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
