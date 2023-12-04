@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_145003) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_04_181224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,11 +85,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_145003) do
 
   create_table "tournaments", force: :cascade do |t|
     t.string "name", null: false
-    t.string "startgg_id", null: false
+    t.string "startgg_event_id", null: false
+    t.string "startgg_tournament_id", null: false
     t.string "startgg_slug", null: false
     t.datetime "happened_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["startgg_event_id", "startgg_tournament_id"], name: "idx_on_startgg_event_id_startgg_tournament_id_022324438e", unique: true
   end
 
   add_foreign_key "game_sets", "matches"
