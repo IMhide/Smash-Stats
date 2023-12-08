@@ -7,6 +7,16 @@ class Tournament < ApplicationRecord
   validates :startgg_tournament_id, presence: true
   validates :startgg_slug, presence: true
   validates :happened_at, presence: true
+  validates :is_online, presence: true
+
+  validates :country_code, presence: true, if: :is_offline?
+  validates :state, presence: true, if: :is_offline?
+  validates :zipcode, presence: true, if: :is_offline?
+  validates :address, presence: true, if: :is_offline?
 
   validates :startgg_event_id, uniqueness: {scope: :startgg_tournament_id}
+
+  def is_offline?
+    !is_online
+  end
 end
