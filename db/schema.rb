@@ -95,6 +95,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_181224) do
     t.string "zipcode"
     t.string "address"
     t.boolean "is_online", null: false
+    t.string "event_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["startgg_event_id", "startgg_tournament_id"], name: "idx_on_startgg_event_id_startgg_tournament_id_022324438e", unique: true

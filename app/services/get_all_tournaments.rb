@@ -25,7 +25,8 @@ class GetAllTournaments
           venue_name: tournament.venue_name,
           zipcode: tournament.postal_code,
           address: tournament.venue_address,
-          is_online: event.is_online
+          is_online: event.is_online,
+          event_name: event.name
         }
       end
     end

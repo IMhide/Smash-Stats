@@ -12,6 +12,7 @@ class CreateTournaments < ActiveRecord::Migration[7.1]
       t.string :zipcode
       t.string :address
       t.boolean :is_online, null: false
+      t.string :event_name, null: false
 
 
       t.timestamps
