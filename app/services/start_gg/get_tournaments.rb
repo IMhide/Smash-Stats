@@ -5,7 +5,7 @@ class StartGg::GetTournaments
       tournaments(query: {
         page: $page,
         perPage: $perPage,
-        filter: { countryCode: "FR",past: true, videogameIds: [1386] },
+        filter: { countryCode: "FR", past: true, videogameIds: [1386] },
         sortBy: "startAt DESC"
       })
         {
@@ -29,7 +29,6 @@ class StartGg::GetTournaments
             }
           }
           pageInfo{
-            page
             totalPages
           }
       	}

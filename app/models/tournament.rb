@@ -1,4 +1,6 @@
 class Tournament < ApplicationRecord
+  enum status: {created: 'created', waiting: 'waiting', synced: 'synced'}
+
   has_many :matches, inverse_of: :tournament
   has_many :participations, inverse_of: :tournament
 
@@ -7,7 +9,7 @@ class Tournament < ApplicationRecord
   validates :startgg_tournament_id, presence: true
   validates :startgg_slug, presence: true
   validates :happened_at, presence: true
-  validates :is_online, presence: true
+  # validates :is_online, presence: true
   validates :event_name, presence: true
 
   validates :country_code, presence: true, if: :is_offline?

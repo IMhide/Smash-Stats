@@ -3,5 +3,5 @@ class Player < ApplicationRecord
 
   has_many :profils, inverse_of: :player
 
-  belongs_to :teams, inverse_of: :profils
+  belongs_to :team, inverse_of: :players, optional: true
 end

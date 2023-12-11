@@ -9,5 +9,5 @@ class Profil < ApplicationRecord
   has_many :participations, inverse_of: :profil
 
   belongs_to :player, inverse_of: :profils
-  belongs_to :teams, inverse_of: :profils
+  belongs_to :teams, inverse_of: :profils, optional: true
 end
