@@ -21,7 +21,7 @@ class GetAllPlacements
         profil.remote_team = standing.entrant.participants.first.prefix
         profil.create_player(name: standing.entrant.participants.first.gamer_tag)
       end
-      profil.save!
+      profil.save
       Participation.create!(tournament: tournament,
         profil: profil,
         placement: standing.placement,
