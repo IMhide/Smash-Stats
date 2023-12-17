@@ -1,4 +1,6 @@
 class Profil < ApplicationRecord
+  self.primary_key = 'startgg_id'
+
   validates :startgg_id, presence: true
   validates :remote_name, presence: true
 

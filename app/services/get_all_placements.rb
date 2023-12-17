@@ -3,10 +3,10 @@ class GetAllPlacements
     Tournament.created.each do |tournament|
       result = StartGg::GetParticipants.call(event_id: tournament.startgg_event_id)
       max_page = result.data.event.standings.page_info.total_pages
-      persist(standings: result.data.event.standings, tournament: tournament)
+      persist(standings: result.data.event.standings.nodes, tournament: tournament)
       2.upto(max_page) do |page|
         result = StartGg::GetParticipants.call(event_id: tournament.startgg_event_id, page: page)
-        persist(standings: result.data.event.standings, tournament: tournament)
+        persist(standings: result.data.event.standings.nodes, tournament: tournament)
       end
     end
   end
@@ -14,7 +14,7 @@ class GetAllPlacements
   private
 
   def persist(standings:, tournament:)
-    standings.nodes.each do |standing|
+    standings.each do |standing|
       profil = Profil.find_or_create_by(startgg_id: standing.entrant.participants.first.id) do |profil|
         profil.startgg_id = standing.entrant.participants.first.id
         profil.remote_name = standing.entrant.participants.first.gamer_tag

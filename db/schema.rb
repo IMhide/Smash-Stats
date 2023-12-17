@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_11_094216) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_15_104251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_094216) do
     t.integer "winner_score", null: false
     t.integer "looser_score", null: false
     t.datetime "completed_at", null: false
+    t.string "round_text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "winner_id"
@@ -78,6 +79,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_094216) do
     t.bigint "player_id"
     t.bigint "team_id"
     t.index ["player_id"], name: "index_profils_on_player_id"
+    t.index ["startgg_id"], name: "index_profils_on_startgg_id", unique: true
     t.index ["team_id"], name: "index_profils_on_team_id"
   end
 
@@ -107,12 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_094216) do
   end
 
   add_foreign_key "game_sets", "matches"
-  add_foreign_key "game_sets", "profils", column: "looser_id"
-  add_foreign_key "game_sets", "profils", column: "winner_id"
-  add_foreign_key "matches", "profils", column: "looser_id"
-  add_foreign_key "matches", "profils", column: "winner_id"
   add_foreign_key "matches", "tournaments"
-  add_foreign_key "participations", "profils"
   add_foreign_key "participations", "tournaments"
   add_foreign_key "players", "teams"
   add_foreign_key "profils", "players"

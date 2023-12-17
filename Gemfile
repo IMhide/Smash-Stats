@@ -36,6 +36,7 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'standard'
   gem 'rubycritic', require: false
+  gem 'awesome_print'
 end
 
 group :development do
