@@ -7,6 +7,7 @@ class GetAllMatches
       2.upto(max_page) do |page|
         puts "Loop Numero #{page}"
         result = StartGg::GetMatches.call(event_id: tournament.startgg_event_id, page: page)
+        ap result
         persist(sets: result.data.event.sets.nodes, tournament_id: tournament.id)
       end
     end
@@ -37,7 +38,7 @@ class GetAllMatches
   def get_winner_set_info(game:, winner_id:)
     winner_info = game.selections.find { |selection| selection.entrant.id == winner_id.to_s }
     {
-      winner_score: 0,
+      winner_score: [game.entrant1_score.to_i, game.entrant2_score.to_i].max,
       winner_character: winner_info.character.name,
       winner_id: winner_info.entrant.participants.first.id
     }
@@ -46,7 +47,7 @@ class GetAllMatches
   def get_looser_set_info(game:, winner_id:)
     looser_info = game.selections.find { |selection| selection.entrant.id != winner_id.to_s }
     {
-      looser_score: 0,
+      looser_score: [game.entrant1_score.to_i, game.entrant2_score.to_i].min,
       looser_character: looser_info.character.name,
       looser_id: looser_info.entrant.participants.first.id
     }
