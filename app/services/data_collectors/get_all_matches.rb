@@ -1,16 +1,22 @@
-class GetAllMatches
-  def call
-    Tournament.waiting.each do |tournament|
-      result = StartGg::GetMatches.call(event_id: tournament.startgg_event_id)
-      max_page = result.data.event.sets.page_info.total_pages
-      persist(sets: result.data.event.sets.nodes, tournament_id: tournament.id)
-      2.upto(max_page) do |page|
-        puts "Loop Numero #{page}"
-        result = StartGg::GetMatches.call(event_id: tournament.startgg_event_id, page: page)
-        ap result
-        persist(sets: result.data.event.sets.nodes, tournament_id: tournament.id)
-      end
-    end
+class DataCollectors::GetAllMatches < DataCollectors::BaseService
+  def tournaments
+    Tournament.waiting
+  end
+
+  def api_args(tournament, page)
+    {event_id: tournament.startgg_event_id, page: page}
+  end
+
+  def api_wrapper
+    StartGg::GetMatches
+  end
+
+  def max_page(result)
+    result.data.event.sets.page_info.total_pages
+  end
+
+  def persist_args(result:, tournament:)
+    {sets: result.data.event.sets.nodes, tournament_id: tournament.id}
   end
 
   def persist(sets:, tournament_id:)

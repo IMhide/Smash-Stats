@@ -1,5 +1,5 @@
 class Tournament < ApplicationRecord
-  enum status: {created: 'created', waiting: 'waiting', synced: 'synced'}
+  enum status: {created: 'created', waiting: 'waiting', no_match: 'no_match', synced: 'synced'}
 
   has_many :matches, inverse_of: :tournament
   has_many :participations, inverse_of: :tournament

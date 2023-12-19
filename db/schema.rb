@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_104251) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "tournament_status", ["created", "waiting", "synced"]
+  create_enum "tournament_status", ["created", "waiting", "no_match", "synced"]
 
   create_table "game_sets", force: :cascade do |t|
     t.integer "winner_score", null: false
