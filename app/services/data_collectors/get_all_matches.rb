@@ -34,17 +34,20 @@ class DataCollectors::GetAllMatches < DataCollectors::BaseService
 
   def get_game_set(set:)
     set.games&.map do |game|
+      next if game.selections.nil?
+
       {
-        stage: game.stage&.name
+        stage: game.stage&.name,
+        winner_score: [game.entrant1_score.to_i, game.entrant2_score.to_i].max,
+        looser_score: [game.entrant1_score.to_i, game.entrant2_score.to_i].min
       }.merge(get_winner_set_info(game: game, winner_id: game.winner_id))
         .merge(get_looser_set_info(game: game, winner_id: game.winner_id))
-    end
+    end&.compact
   end
 
   def get_winner_set_info(game:, winner_id:)
     winner_info = game.selections.find { |selection| selection.entrant.id == winner_id.to_s }
     {
-      winner_score: [game.entrant1_score.to_i, game.entrant2_score.to_i].max,
       winner_character: winner_info.character.name,
       winner_id: winner_info.entrant.participants.first.id
     }
@@ -53,7 +56,6 @@ class DataCollectors::GetAllMatches < DataCollectors::BaseService
   def get_looser_set_info(game:, winner_id:)
     looser_info = game.selections.find { |selection| selection.entrant.id != winner_id.to_s }
     {
-      looser_score: [game.entrant1_score.to_i, game.entrant2_score.to_i].min,
       looser_character: looser_info.character.name,
       looser_id: looser_info.entrant.participants.first.id
     }
