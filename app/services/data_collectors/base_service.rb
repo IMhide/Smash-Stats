@@ -2,18 +2,16 @@ class DataCollectors::BaseService
   RETRY = 10
   SLEEP = 10
 
-  def self.call
-    new.call
+  def self.call(tournament: nil)
+    new.call(tournament: tournament)
   end
 
-  def call
-    tournaments.each do |tournament|
-      result = safe_api_call(**api_args(tournament, 1))
+  def call(tournament:)
+    result = safe_api_call(**api_args(tournament, 1))
+    persist(**persist_args(result: result, tournament: tournament))
+    2.upto(max_page(result)) do |page|
+      result = safe_api_call(**api_args(tournament, page))
       persist(**persist_args(result: result, tournament: tournament))
-      2.upto(max_page(result)) do |page|
-        result = safe_api_call(**api_args(tournament, page))
-        persist(**persist_args(result: result, tournament: tournament))
-      end
     end
   end
 

@@ -14,6 +14,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', require: false
 gem 'graphql', '>= 2.0.27', '< 2.1'
 gem 'graphql-client'
+gem 'sidekiq'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
