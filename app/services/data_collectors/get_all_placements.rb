@@ -1,8 +1,4 @@
 class DataCollectors::GetAllPlacements < DataCollectors::BaseService
-  def tournaments
-    Tournament.created
-  end
-
   def api_args(tournament, page)
     {event_id: tournament.startgg_event_id, page: page}
   end

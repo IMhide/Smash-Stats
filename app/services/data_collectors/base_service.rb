@@ -15,10 +15,6 @@ class DataCollectors::BaseService
     end
   end
 
-  def tournaments
-    Tournament.all
-  end
-
   def api_args(tournament, page)
     {}
   end
