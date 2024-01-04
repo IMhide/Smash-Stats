@@ -1,8 +1,4 @@
 class DataCollectors::GetAllMatches < DataCollectors::BaseService
-  def tournaments
-    Tournament.waiting
-  end
-
   def api_args(tournament, page)
     {event_id: tournament.startgg_event_id, page: page}
   end
