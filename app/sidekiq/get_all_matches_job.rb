@@ -3,8 +3,10 @@ class GetAllMatchesJob
 
   def perform(*args)
     Tournament.waiting.each do |tournament|
-      DataCollectors::GetAllMatches.call(tournament: tournament)
-      tournament.update(status: 'synced')
+      ActiveRecord::Base.transaction do
+        DataCollectors::GetAllMatches.call(tournament: tournament)
+        tournament.update(status: 'synced')
+      end
     end
   end
 end
