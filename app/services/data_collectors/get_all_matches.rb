@@ -26,11 +26,15 @@ class DataCollectors::GetAllMatches < DataCollectors::BaseService
         .merge(get_winner_info(set: set, winner_id: set.winner_id))
     end
     Match.create!(matches_hash)
+  rescue => e
+    ap sets
+    ap matches_hash.map { |m| m[:looser_id] }
+    raise e
   end
 
   def get_game_set(set:)
     set.games&.map do |game|
-      next if game.selections.nil?
+      next if game.selections.nil? || game.selections.count != 2 || game.entrant1_score == game.entrant2_score
 
       {
         stage: game.stage&.name,

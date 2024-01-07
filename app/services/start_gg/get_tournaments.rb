@@ -1,5 +1,5 @@
 class StartGg::GetTournaments
-  PER_PAGE = 200
+  PER_PAGE = 75
   Request = StartGg::Client.parse <<~'GRAPHQL'
     query($page: Int, $perPage: Int) {
       tournaments(query: {
@@ -26,12 +26,15 @@ class StartGg::GetTournaments
               state
               isOnline
               startAt
+              phaseGroups{
+                bracketType
+              }
             }
           }
           pageInfo{
             totalPages
           }
-      	}
+        }
     }
   GRAPHQL
 

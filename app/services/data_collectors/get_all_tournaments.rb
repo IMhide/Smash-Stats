@@ -21,7 +21,7 @@ class DataCollectors::GetAllTournaments < DataCollectors::BaseService
 
   def persist(remote_tournaments:)
     tournament_batch = remote_tournaments.map do |tournament|
-      tournament.events.select { |e| e.state == 'COMPLETED' }.map do |event|
+      tournament.events.select { |e| e.state == 'COMPLETED' && is_double_elimination?(e) }.map do |event|
         {
           name: tournament.name,
           startgg_tournament_id: tournament.id,
@@ -39,5 +39,11 @@ class DataCollectors::GetAllTournaments < DataCollectors::BaseService
       end
     end
     Tournament.insert_all(tournament_batch.flatten)
+  end
+
+  private
+
+  def is_double_elimination?(event)
+    event.phase_groups.map(&:bracket_type).all?('DOUBLE_ELIMINATION')
   end
 end

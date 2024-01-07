@@ -23,13 +23,18 @@ class DataCollectors::GetAllPlacements < DataCollectors::BaseService
         profil.remote_team = standing.entrant.participants.first.prefix
         profil.create_player(name: standing.entrant.participants.first.gamer_tag)
       end
-      profil.save
-      Participation.create!(tournament_id: tournament_id,
+      profil.save!
+      Participation.create(tournament_id: tournament_id,
         profil: profil,
         placement: standing.placement,
         seed: standing.entrant.initial_seed_num,
         verified: standing.entrant.participants.first.verified,
         dq: !!standing.entrant.is_disqualified)
+    rescue => e
+      puts '-- Placement persist error --'
+      puts e.message
+      ap standing
+      puts '-- Placement persist error --'
     end
   end
 end

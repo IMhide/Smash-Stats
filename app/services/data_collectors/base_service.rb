@@ -39,11 +39,11 @@ class DataCollectors::BaseService
 
     begin
       result = api_wrapper.call(**args)
-      raise '429' if result.errors.messages['data']&.include?('429 Too Many Requests')
+      raise result.errors.messages['data'].join(' | ') unless result.errors.messages.empty?
       result
     rescue => e
-      if e.message == '429' && tries <= RETRY
-        puts 'LOG --- RETRY FOR API RATE LIMIT'
+      if tries <= RETRY
+        puts "LOG --- RETRY ##{tries} BECAUSE #{e.message}"
         tries += 1
         sleep(SLEEP)
         retry
