@@ -15,9 +15,11 @@ gem 'bootsnap', require: false
 gem 'graphql', '>= 2.0.27', '< 2.1'
 gem 'graphql-client'
 gem 'sidekiq'
+gem 'devise'
+gem 'activeadmin'
 
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem 'sassc-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 group :development, :test do

@@ -22,4 +22,12 @@ class Tournament < ApplicationRecord
   def is_offline?
     !is_online
   end
+
+  def self.ransackable_attributes(auth = nil)
+    ['name', 'status', 'happened_at', 'country_code', 'state', 'zipcode', 'address', 'is_online']
+  end
+
+  def self.ransackable_associations(auth = nil)
+    []
+  end
 end
